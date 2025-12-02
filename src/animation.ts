@@ -81,15 +81,18 @@ class AnimationRenderer {
 			// Fast random tile selection using bitwise OR for floor operation
 			const tileIndex = (Math.random() * tilesLength) | 0;
 			const randomTile = tiles[tileIndex] ?? '▄'; // Fallback to default tile
-			const colorCode = (Math.random() * 256) | 0;
+
+			// Random foreground and background colors
+			const fgColor = (Math.random() * 256) | 0;
+			const bgColor = (Math.random() * 256) | 0;
 
 			// Create line with repeated tile
 			const line = randomTile.repeat(this.drawableColumns);
 
-			// Apply color (randomly choose fg or bg)
-			// Inline ANSI codes for performance (avoid function calls)
-			const colored =
-				Math.random() > 0.5 ? `\x1b[38;5;${colorCode}m${line}\x1b[0m` : `\x1b[48;5;${colorCode}m${line}\x1b[0m`;
+			// Apply both foreground and background color, then reset both
+			// \x1b[39m resets foreground, \x1b[49m resets background
+			// Using both explicit resets plus \x1b[0m for full reset
+			const colored = `\x1b[38;5;${fgColor}m\x1b[48;5;${bgColor}m${line}\x1b[39m\x1b[49m`;
 
 			// Position cursor and write line
 			buffer.push(`\x1b[${this.startRow + row};${this.startCol}H${colored}`);
