@@ -29,12 +29,13 @@ function supports256Colors(): boolean {
 	}
 
 	// Check TERM environment variable
-	if (term.includes('256') || term.includes('256color')) {
+	if (term.includes('256color') || term.includes('256')) {
 		return true;
 	}
 
 	// Common terminals that support 256 colors
 	const supports256 = ['xterm-256color', 'screen-256color', 'tmux-256color', 'rxvt-unicode-256color'];
+
 	if (supports256.includes(term)) {
 		return true;
 	}
@@ -45,8 +46,8 @@ function supports256Colors(): boolean {
 const has256ColorSupport = supports256Colors();
 
 if (!has256ColorSupport) {
-	console.error('Warning: Your terminal may not support 256 colors. Set TERM=xterm-256color for best results.');
-	console.error(`Current TERM: ${process.env.TERM}`);
+	console.warn('Warning: Your terminal may not support 256 colors. Set TERM=xterm-256color for best results.');
+	console.warn(`Current TERM: ${process.env.TERM}`);
 }
 
 // Pre-compute frequently used values
@@ -119,13 +120,27 @@ function initializeScreen(_border: number): void {
 	process.stdout.write('\x1b[?25l');
 }
 
-function restoreScreen(): void {
-	clearScreen();
+function restoreScreen(border: number): void {
+	// Clear only the drawable area, not the entire screen
+	const drawableRows = rows - border * 2;
+	const startRow = border + 1;
+	const startCol = border + 1;
+	const drawableColumns = columns - border * 2;
+
+	// Clear each line in the drawable area
+	const clearLine = ' '.repeat(drawableColumns);
+	for (let row = 0; row < drawableRows; row++) {
+		process.stdout.write(`\x1b[${startRow + row};${startCol}H${clearLine}`);
+	}
+
+	// Move cursor to the start of the drawable area
+	process.stdout.write(`\x1b[${startRow};${startCol}H`);
+
 	// Show cursor again
 	process.stdout.write('\x1b[?25h');
 }
 
-export async function withLoadingAnimation<T>(task: Promise<T>, options: AnimationOptions = {}): Promise<T> {
+export async function whileDecrunching<T>(task: Promise<T>, options: AnimationOptions = {}): Promise<T> {
 	const { fps = 30, border = 0 } = options;
 
 	// Initialize screen before starting animation
@@ -140,12 +155,15 @@ export async function withLoadingAnimation<T>(task: Promise<T>, options: Animati
 
 	try {
 		const result = await task;
+
 		clearInterval(interval);
-		restoreScreen();
+		restoreScreen(border);
+
 		return result;
 	} catch (error) {
 		clearInterval(interval);
-		restoreScreen();
+		restoreScreen(border);
+
 		throw error;
 	}
 }
@@ -165,6 +183,6 @@ export function startAnimation(options: AnimationOptions = {}): () => void {
 
 	return () => {
 		clearInterval(interval);
-		restoreScreen();
+		restoreScreen(border);
 	};
 }
