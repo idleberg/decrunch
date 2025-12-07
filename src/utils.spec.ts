@@ -63,7 +63,7 @@ describe('spawnProcess', () => {
 	it('should spawn process with correct arguments', () => {
 		spawnProcess('echo', ['hello']);
 
-		expect(spawn).toHaveBeenCalledWith('echo', ['hello'], { stdio: 'inherit' });
+		expect(spawn).toHaveBeenCalledWith('echo', ['hello'], { stdio: 'pipe' });
 	});
 
 	it('should not spawn process in dry-run mode', async () => {
@@ -168,7 +168,7 @@ describe('spawnProcess', () => {
 	it('should handle command without arguments', () => {
 		spawnProcess('node', []);
 
-		expect(spawn).toHaveBeenCalledWith('node', [], { stdio: 'inherit' });
+		expect(spawn).toHaveBeenCalledWith('node', [], { stdio: 'pipe' });
 	});
 
 	it('should handle command with dry-run and no arguments', async () => {
