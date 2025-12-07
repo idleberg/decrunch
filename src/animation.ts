@@ -104,47 +104,32 @@ class AnimationRenderer {
 	}
 }
 
-function clearScreen(): void {
-	process.stdout.write('\x1b[2J\x1b[H');
-}
+function initializeScreen(): void {
+	// Enter alternate screen buffer (like vim/less)
+	// This completely isolates the animation from the normal terminal
+	process.stdout.write('\x1b[?1049h');
 
-function initializeScreen(_border: number): void {
-	// Clear the entire screen first
-	clearScreen();
-
-	// If there's a border, we could optionally render it here
-	// For now, clearing is enough as the border will remain untouched
-	// and the drawable area will be filled with content
+	// Clear the alternate screen
+	process.stdout.write('\x1b[H\x1b[2J');
 
 	// Hide cursor for cleaner animation
 	process.stdout.write('\x1b[?25l');
 }
 
-function restoreScreen(border: number): void {
-	// Clear only the drawable area, not the entire screen
-	const drawableRows = rows - border * 2;
-	const startRow = border + 1;
-	const startCol = border + 1;
-	const drawableColumns = columns - border * 2;
-
-	// Clear each line in the drawable area
-	const clearLine = ' '.repeat(drawableColumns);
-	for (let row = 0; row < drawableRows; row++) {
-		process.stdout.write(`\x1b[${startRow + row};${startCol}H${clearLine}`);
-	}
-
-	// Move cursor to the start of the drawable area
-	process.stdout.write(`\x1b[${startRow};${startCol}H`);
-
+function restoreScreen(): void {
 	// Show cursor again
 	process.stdout.write('\x1b[?25h');
+
+	// Exit alternate screen buffer
+	// This restores the terminal to exactly how it was before
+	process.stdout.write('\x1b[?1049l');
 }
 
 export async function whileDecrunching<T>(task: Promise<T>, options: AnimationOptions = {}): Promise<T> {
 	const { fps = 30, border = 0 } = options;
 
 	// Initialize screen before starting animation
-	initializeScreen(border);
+	initializeScreen();
 
 	// Create renderer instance (caches calculations)
 	const renderer = new AnimationRenderer(border);
@@ -157,12 +142,12 @@ export async function whileDecrunching<T>(task: Promise<T>, options: AnimationOp
 		const result = await task;
 
 		clearInterval(interval);
-		restoreScreen(border);
+		restoreScreen();
 
 		return result;
 	} catch (error) {
 		clearInterval(interval);
-		restoreScreen(border);
+		restoreScreen();
 
 		throw error;
 	}
@@ -172,7 +157,7 @@ export function startAnimation(options: AnimationOptions = {}): () => void {
 	const { fps = 30, border = 0 } = options;
 
 	// Initialize screen before starting animation
-	initializeScreen(border);
+	initializeScreen();
 
 	// Create renderer instance (caches calculations)
 	const renderer = new AnimationRenderer(border);
@@ -183,6 +168,6 @@ export function startAnimation(options: AnimationOptions = {}): () => void {
 
 	return () => {
 		clearInterval(interval);
-		restoreScreen(border);
+		restoreScreen();
 	};
 }
