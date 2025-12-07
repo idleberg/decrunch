@@ -1,24 +1,36 @@
 {
-	"name": "node-package-template",
+	"name": "decrunch",
 	"version": "0.0.0",
 	"private": true,
-	"description": "Just my personal package template",
+	"description": "An obstrusive loading indicator for the terminal, reminiscent of Commodore 64's \"decrunching\"",
 	"license": "MIT",
 	"author": "Jan T. Sott",
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/idleberg/node-package-template.git"
+		"url": "git+https://github.com/idleberg/decrunch.git"
 	},
-	"keywords": [],
+	"keywords": [
+		"terminal",
+		"tui",
+		"cli",
+		"loading indicator",
+		"spinner"
+	],
 	"type": "module",
 	"bin": {
-		"decrunch": "./bin/index.mjs"
+		"decrunch": "./lib/cli.mjs"
+	},
+	"exports": {
+		".": {
+			"types": "./lib/decrunch.d.mts",
+			"import": "./lib/decrunch.mjs"
+		}
 	},
 	"engines": {
 		"node": ">=20"
 	},
 	"files": [
-		"dist/",
+		"lib/",
 		"LICENSE",
 		"README.md"
 	],
