@@ -1,30 +1,24 @@
-import { withLoadingAnimation } from './animation.ts';
+#! /usr/bin/env node
 
-// Example usage: Simple delay function
-function delay(ms: number): Promise<void> {
-	return new Promise((resolve) => setTimeout(resolve, ms));
-}
+import { handleCli } from './cli.ts';
+import { whileCrunching } from './decrunch.ts';
+import { logger } from './log.ts';
+import { spawnProcess } from './utils.ts';
 
-// Example usage: Simulated task
-async function simulateTask(): Promise<string> {
-	await delay(50000); // Simulate a 5-second task
-	return 'Task completed!';
-}
-
-// Run the example
 async function main() {
-	console.log('Starting task with loading animation...\n');
+	const { command, args, options } = await handleCli();
 
 	try {
-		const result = await withLoadingAnimation(simulateTask(), {
-			border: 1,
-			fps: 30,
+		const result = await whileCrunching(spawnProcess(command as string, args), {
+			border: options.border ? Number.parseInt(options.border, 10) : 0,
+			fps: options.fps ? Number.parseInt(options.fps, 10) : 25,
 		});
-		console.log(result);
+
+		setImmediate(() => process.exit(result.exitCode));
 	} catch (error) {
-		console.error('Task failed:', error);
-		process.exit(1);
+		logger.error('Error:', error);
+		setImmediate(() => process.exit(1));
 	}
 }
 
-main();
+await main();

@@ -1,3 +1,5 @@
+import { logger } from './log.ts';
+
 const { rows, columns } = process.stdout;
 
 if (!rows || !columns) {
@@ -46,15 +48,15 @@ function supports256Colors(): boolean {
 const has256ColorSupport = supports256Colors();
 
 if (!has256ColorSupport) {
-	console.warn('Warning: Your terminal may not support 256 colors. Set TERM=xterm-256color for best results.');
-	console.warn(`Current TERM: ${process.env.TERM}`);
+	logger.warn('Warning: Your terminal may not support 256 colors. Set TERM=xterm-256color for best results.');
+	logger.warn(`Current TERM: ${process.env.TERM}`);
 }
 
 // Pre-compute frequently used values
 const tilesLength = tiles.length;
 
 // Cache for performance
-class AnimationRenderer {
+class Renderer {
 	private readonly borderConfig: BorderConfig;
 	private readonly drawableRows: number;
 	private readonly drawableColumns: number;
@@ -125,14 +127,14 @@ function restoreScreen(): void {
 	process.stdout.write('\x1b[?1049l');
 }
 
-export async function whileDecrunching<T>(task: Promise<T>, options: AnimationOptions = {}): Promise<T> {
-	const { fps = 30, border = 0 } = options;
+export async function whileCrunching<T>(task: Promise<T>, options: AnimationOptions = {}): Promise<T> {
+	const { fps = 25, border = 0 } = options;
 
 	// Initialize screen before starting animation
 	initializeScreen();
 
 	// Create renderer instance (caches calculations)
-	const renderer = new AnimationRenderer(border);
+	const renderer = new Renderer(border);
 
 	const interval = setInterval(() => {
 		renderer.renderFrame();
@@ -153,14 +155,14 @@ export async function whileDecrunching<T>(task: Promise<T>, options: AnimationOp
 	}
 }
 
-export function startAnimation(options: AnimationOptions = {}): () => void {
-	const { fps = 30, border = 0 } = options;
+export function startCrunching(options: AnimationOptions = {}): () => void {
+	const { fps = 25, border = 0 } = options;
 
 	// Initialize screen before starting animation
 	initializeScreen();
 
 	// Create renderer instance (caches calculations)
-	const renderer = new AnimationRenderer(border);
+	const renderer = new Renderer(border);
 
 	const interval = setInterval(() => {
 		renderer.renderFrame();
