@@ -4,7 +4,6 @@
 
 [![License](https://img.shields.io/github/license/idleberg/decrunch?color=blue&style=for-the-badge)](https://github.com/idleberg/decrunch/blob/main/LICENSE)
 [![Version: npm](https://img.shields.io/npm/v/decrunch?style=for-the-badge)](https://www.npmjs.org/package/decrunch)
-[![Version: jsr](https://img.shields.io/jsr/v/@idleberg/decrunch?style=for-the-badge)](https://jsr.io/@idleberg/decrunch)
 ![GitHub branch check runs](https://img.shields.io/github/check-runs/idleberg/decrunch/main?style=for-the-badge)
 
 ## Installation
