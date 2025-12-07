@@ -54,7 +54,6 @@ stopDecrunching();
 ### CLI
 
 ```shell
-# Animate for 3 seconds
 npx decrunch sleep 3
 ```
 
