@@ -47,7 +47,6 @@ describe('spawnProcess', () => {
 
 		// Mock process.on to capture signal handlers
 		signalHandlers = new Map();
-		const originalProcessOn = process.on;
 		process.on = vi.fn((signal: any, handler: any) => {
 			signalHandlers.set(signal, handler);
 			return process;
