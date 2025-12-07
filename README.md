@@ -1,6 +1,11 @@
 # decrunch
 
-A colorful terminal loading animation using random tiles and 256-color support.
+> An obstrusive loading indicator for the terminal, reminiscent of Commodore 64's "decrunching".
+
+[![License](https://img.shields.io/github/license/idleberg/decrunch?color=blue&style=for-the-badge)](https://github.com/idleberg/decrunch/blob/main/LICENSE)
+[![Version: npm](https://img.shields.io/npm/v/decrunch?style=for-the-badge)](https://www.npmjs.org/package/decrunch)
+[![Version: jsr](https://img.shields.io/jsr/v/@idleberg/decrunch?style=for-the-badge)](https://jsr.io/@idleberg/decrunch)
+![GitHub branch check runs](https://img.shields.io/github/check-runs/idleberg/decrunch/main?style=for-the-badge)
 
 ## Installation
 
@@ -46,37 +51,35 @@ await someTask();
 stopDecrunching();
 ```
 
+### CLI
+
+```shell
+# Animate for 3 seconds
+npx decrunch sleep 3
+```
+
 ## API
 
 ### `whileDecrunching<T>(task: Promise<T>, options?: AnimationOptions): Promise<T>`
 
 Runs a loading animation while waiting for a promise to resolve.
 
-- `task`: The promise to await
-- `options`: Optional configuration object
-  - `fps`: Frames per second (default: 25)
-  - `border`: Number of characters to leave empty on all sides (default: 0)
-- Returns: The result of the promise
-
 ### `startDecrunching(options?: AnimationOptions): () => void`
 
 Starts the animation and returns a function to stop it.
 
-- `options`: Optional configuration object
-  - `fps`: Frames per second (default: 25)
-  - `border`: Number of characters to leave empty on all sides (default: 0)
-- Returns: A function to stop the animation and clear the screen
+## Options
 
-### Options
+Both exported function accept the same options object:
 
-#### `option.border``
+### `option.border``
 
 Type: `number`  
 Default: 25  
 
 Border with on all sides.
 
-#### `option.fps``
+### `option.fps``
 
 Type: `number`  
 Default: 25  
