@@ -127,7 +127,7 @@ function restoreScreen(): void {
 	process.stdout.write('\x1b[?1049l');
 }
 
-export async function whileCrunching<T>(task: Promise<T>, options: AnimationOptions = {}): Promise<T> {
+export async function whileDecrunching<T>(task: Promise<T>, options: AnimationOptions = {}): Promise<T> {
 	const { fps = 25, border = 0 } = options;
 
 	// Initialize screen before starting animation
@@ -155,7 +155,7 @@ export async function whileCrunching<T>(task: Promise<T>, options: AnimationOpti
 	}
 }
 
-export function startCrunching(options: AnimationOptions = {}): () => void {
+export function startDecrunching(options: AnimationOptions = {}): () => void {
 	const { fps = 25, border = 0 } = options;
 
 	// Initialize screen before starting animation

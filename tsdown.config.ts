@@ -7,10 +7,13 @@ export default defineConfig((options) => {
 		target: 'node20',
 		clean: isProduction,
 		dts: isProduction,
-		entry: 'src/index.ts',
+		entry: {
+			cli: 'src/index.ts',
+			decrunch: 'src/decrunch.ts',
+		},
 		format: 'esm',
 		minify: isProduction,
-		outDir: 'bin',
+		outDir: 'lib',
 		platform: 'node',
 	};
 });
