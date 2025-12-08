@@ -1,6 +1,6 @@
 {
 	"name": "decrunch",
-	"version": "0.1.0",
+	"version": "0.0.0",
 	"description": "An obstrusive loading indicator for the terminal, reminiscent of Commodore 64's \"decrunching\"",
 	"license": "MIT",
 	"author": "Jan T. Sott",
