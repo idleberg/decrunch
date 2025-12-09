@@ -11,6 +11,11 @@ export default defineConfig((options) => {
 			cli: 'src/index.ts',
 			decrunch: 'src/decrunch.ts',
 		},
+		externals: [
+			// ensure we always read the current version from the manifests
+			'../deno.json',
+			'../package.json',
+		],
 		format: 'esm',
 		minify: isProduction,
 		outDir: 'lib',
