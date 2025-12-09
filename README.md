@@ -70,14 +70,14 @@ Starts the animation and returns a function to stop it.
 
 Both exported function accept the same options object:
 
-### `option.border``
+### `option.border`
 
 Type: `number`  
 Default: 25  
 
 Border with on all sides.
 
-### `option.fps``
+### `option.fps`
 
 Type: `number`  
 Default: 25  
