@@ -51,17 +51,17 @@
 		"log-symbols": "^7.0.1"
 	},
 	"devDependencies": {
-		"@commitlint/cli": "^20.1.0",
-		"@commitlint/config-conventional": "^20.0.0",
+		"@commitlint/cli": "^20.2.0",
+		"@commitlint/config-conventional": "^20.2.0",
 		"@e18e/cli": "^0.3.1",
-		"@idleberg/configs": "^0.3.3",
+		"@idleberg/configs": "^0.4.1",
 		"@types/node": "^24.10.0",
-		"@vitest/coverage-v8": "^4.0.8",
+		"@vitest/coverage-v8": "^4.0.15",
 		"concurrently": "^9.2.1",
 		"np": "^10.2.0",
-		"tsdown": "^0.16.1",
+		"tsdown": "^0.18.0",
 		"typescript": "^5.9.3",
-		"vitest": "^4.0.8"
+		"vitest": "^4.0.15"
 	},
 	"packageManager": "pnpm@10.21.0+sha512.da3337267e400fdd3d479a6c68079ac6db01d8ca4f67572083e722775a796788a7a9956613749e000fac20d424b594f7a791a5f4e2e13581c5ef947f26968a40"
 }
