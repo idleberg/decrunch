@@ -19,7 +19,7 @@ npm install decrunch
 Wrap any async task with the loading animation:
 
 ```typescript
-import { whileDecrunching } from './animation.js';
+import { whileDecrunching } from 'decrunch';
 
 // Wrap any promise
 const result = await whileDecrunching(
@@ -36,7 +36,7 @@ const result = await whileDecrunching(
 Start and stop the animation manually:
 
 ```typescript
-import { startDecrunching } from './animation.js';
+import { startDecrunching } from 'decrunch';
 
 const stopDecrunching = startDecrunching({
 	// default options
