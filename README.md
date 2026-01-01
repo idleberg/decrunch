@@ -1,6 +1,8 @@
 # decrunch
 
-> An obstrusive loading indicator for the terminal, reminiscent of Commodore 64's ["decrunching"](https://www.behance.net/gallery/116103231/LOADING-C64-Pixel-Art).
+> An OBSTRUSIVE loading indicator for the terminal, reminiscent of Commodore
+> 64's
+> ["decrunching"](https://www.behance.net/gallery/116103231/LOADING-C64-Pixel-Art).
 
 [![License](https://img.shields.io/github/license/idleberg/decrunch?color=blue&style=for-the-badge)](https://github.com/idleberg/decrunch/blob/main/LICENSE)
 [![Version: npm](https://img.shields.io/npm/v/decrunch?style=for-the-badge)](https://www.npmjs.org/package/decrunch)
@@ -19,15 +21,16 @@ npm install decrunch
 Wrap any async task with the loading animation:
 
 ```typescript
-import { whileDecrunching } from './animation.js';
+import { whileDecrunching } from "./animation.js";
 
 // Wrap any promise
 const result = await whileDecrunching(
-  fetch('https://api.example.com/data'), {
+	fetch("https://api.example.com/data"),
+	{
 		// default options
 		border: 0,
-		fps: 25
-	}
+		fps: 25,
+	},
 );
 ```
 
@@ -72,15 +75,15 @@ Both exported function accept the same options object:
 
 ### `option.border`
 
-Type: `number`  
-Default: 25  
+Type: `number`\
+Default: 25
 
 Border with on all sides.
 
 ### `option.fps`
 
-Type: `number`  
-Default: 25  
+Type: `number`\
+Default: 25
 
 Frames per second.
 
