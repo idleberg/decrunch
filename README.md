@@ -2,7 +2,7 @@
 
 > An OBSTRUSIVE loading indicator for the terminal, reminiscent of Commodore
 > 64's
-> ["decrunching"](https://www.behance.net/gallery/116103231/LOADING-C64-Pixel-Art).
+> ["decrunching"](https://www.behance.net/gallery/116103231/LOADING-C64-Pixel-Art) screen.
 
 [![License](https://img.shields.io/github/license/idleberg/decrunch?color=blue&style=for-the-badge)](https://github.com/idleberg/decrunch/blob/main/LICENSE)
 [![Version: npm](https://img.shields.io/npm/v/decrunch?style=for-the-badge)](https://www.npmjs.org/package/decrunch)
