@@ -1,7 +1,7 @@
 {
 	"name": "decrunch",
 	"version": "0.1.0",
-	"description": "An OBSTRUSIVE loading indicator for the terminal, reminiscent of Commodore 64's \"decrunching\"",
+	"description": "An OBSTRUSIVE loading indicator for the terminal, reminiscent of Commodore 64's \"decrunching\" screen",
 	"license": "MIT",
 	"author": "Jan T. Sott",
 	"repository": {
